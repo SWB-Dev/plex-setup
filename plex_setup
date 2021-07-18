@@ -1,0 +1,23 @@
+#!/bin/bash
+# BASH script to setup Plex Media Server on a raspbery pi
+
+echo Getting Raspberry Pi updates...
+sudo apt-get update
+sudo apt-get upgrade
+
+echo Setting up APT Transport HTTPS
+sudo apt-get install apt-transport-https
+
+echo Getting PlexKey
+curl https://downloads.plex.tv/plex-keys/PlexSign.key | sudo apt-key add -
+
+echo deb https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
+
+sudo apt-get update
+yes | sudo apt autoremove
+
+echo Installing Plex Media Server...
+sudo apt install plexmediaserver
+
+echo Add the following ip address to the end of  file /boot/cmdline.txt as ip=the_ip
+hostname -I
